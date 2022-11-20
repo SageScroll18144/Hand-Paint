@@ -2,7 +2,7 @@ import pygame as pg
 
 BLACK = (0,0,0)
 
-screen = pg.display.set_mode((0,0), pg.FULLSCREEN)
+screen = pg.display.set_mode((1200,800))
 screen.fill((255,255,255))
 
 def drawCircle(screen, x, y):

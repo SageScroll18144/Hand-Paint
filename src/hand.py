@@ -1,6 +1,12 @@
 import cv2
 import mediapipe as mp
 import math
+import pygame as pg
+
+BLACK = (0,0,0)
+
+screen = pg.display.set_mode((1200,800))
+screen.fill((255,255,255))
 
 WINDOW_NAME = "bora billl"
 
@@ -8,11 +14,19 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
+def drawCircle(screen, x, y):
+  pg.draw.circle( screen, BLACK, ( x, y ), 10 )
+
 def euclian_distance(x,y,z):
   return (math.sqrt(x**2+y**2+z**2)) <= 0.09
 
+isPressed = False
+flag = True
+
 # For webcam input:
 cap = cv2.VideoCapture(0)
+
+list_of_the_fingers = [8, 12, 16, 20]
 
 with mp_hands.Hands(
     model_complexity=0,
@@ -45,14 +59,18 @@ with mp_hands.Hands(
       #print([
       if euclian_distance(results.multi_hand_landmarks[0].landmark[8].x - results.multi_hand_landmarks[0].landmark[12].x, results.multi_hand_landmarks[0].landmark[8].y - results.multi_hand_landmarks[0].landmark[12].y, results.multi_hand_landmarks[0].landmark[8].z - results.multi_hand_landmarks[0].landmark[12].z):
         print("PINTANDO")
+        drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[8].x) * 1200, results.multi_hand_landmarks[0].landmark[8].y * 800)
       else: 
         print("AGORA NAOO")
         
       print(results.multi_hand_landmarks[0].landmark[8])
     # Flip the image horizontally for a selfie-view display.
-    cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
-    cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    # cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
+    # cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     cv2.imshow(WINDOW_NAME, cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
+    pg.display.flip()
+
 cap.release()
+pg.quit()
