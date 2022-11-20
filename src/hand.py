@@ -18,10 +18,11 @@ def drawCircle(screen, x, y):
   pg.draw.circle( screen, BLACK, ( x, y ), 10 )
 
 def euclian_distance(x,y,z):
-  return (math.sqrt(x**2+y**2+z**2)) <= 0.09
+  print((math.sqrt(x**2+y**2+z**2)))
+  return (math.sqrt(x**2+y**2+z**2)) <= 0.17
 
 isPressed = False
-flag = True
+flag = False
 
 # For webcam input:
 cap = cv2.VideoCapture(0)
@@ -57,7 +58,15 @@ with mp_hands.Hands(
             mp_drawing_styles.get_default_hand_landmarks_style(),
             mp_drawing_styles.get_default_hand_connections_style())
       #print([
-      if euclian_distance(results.multi_hand_landmarks[0].landmark[8].x - results.multi_hand_landmarks[0].landmark[12].x, results.multi_hand_landmarks[0].landmark[8].y - results.multi_hand_landmarks[0].landmark[12].y, results.multi_hand_landmarks[0].landmark[8].z - results.multi_hand_landmarks[0].landmark[12].z):
+      
+      for i in list_of_the_fingers:
+        if euclian_distance(results.multi_hand_landmarks[0].landmark[4].x - results.multi_hand_landmarks[0].landmark[i].x, results.multi_hand_landmarks[0].landmark[4].y - results.multi_hand_landmarks[0].landmark[i].y, results.multi_hand_landmarks[0].landmark[4].z - results.multi_hand_landmarks[0].landmark[i].z):
+          flag = True
+        else:
+          flag = False
+          break
+
+      if flag:
         print("PINTANDO")
         drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[8].x) * 1200, results.multi_hand_landmarks[0].landmark[8].y * 800)
       else: 
