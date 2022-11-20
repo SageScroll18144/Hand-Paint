@@ -13,8 +13,7 @@ def euclian_distance(x,y,z):
 
 # For webcam input:
 cap = cv2.VideoCapture(0)
-# cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
-# cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 with mp_hands.Hands(
     model_complexity=0,
     min_detection_confidence=0.5,
@@ -51,7 +50,9 @@ with mp_hands.Hands(
         
       print(results.multi_hand_landmarks[0].landmark[8])
     # Flip the image horizontally for a selfie-view display.
-    cv2.imshow('MediaPipe Hands', cv2.flip(image, 1))
+    cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+    cv2.imshow(WINDOW_NAME, cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
 cap.release()
