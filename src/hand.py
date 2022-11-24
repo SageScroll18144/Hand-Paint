@@ -18,7 +18,7 @@ def drawCircle(screen, x, y):
   pg.draw.circle( screen, BLACK, ( x, y ), 10 )
 
 def euclian_distance(x,y,z):
-  return (math.sqrt(x**2+y**2+z**2)) <= 0.17
+  return (math.sqrt(x**2+y**2+z**2)) <= 0.3
 
 isPressed = False
 flag = False
@@ -67,12 +67,11 @@ with mp_hands.Hands(
           break
 
       if not flag:
-        #print("PINTANDO")
         drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800)
-      #else: 
-        #print("AGORA NAOO")
-        
-      print(results.multi_hand_landmarks[0].landmark[8].z)
+      else: 
+        # pg.draw.rect(screen, (255, 0, 0), ((1 - results.multi_hand_landmarks[0].landmark[9].x), results.multi_hand_landmarks[0].landmark[9].y * 800, 20, 20))
+        # pg.display.update()
+        print("aq")
 
     cv2.imshow(WINDOW_NAME, cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
