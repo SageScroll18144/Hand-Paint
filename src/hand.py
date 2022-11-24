@@ -18,7 +18,6 @@ def drawCircle(screen, x, y):
   pg.draw.circle( screen, BLACK, ( x, y ), 10 )
 
 def euclian_distance(x,y,z):
-  #print((math.sqrt(x**2+y**2+z**2)))
   return (math.sqrt(x**2+y**2+z**2)) <= 0.17
 
 isPressed = False
@@ -59,23 +58,14 @@ with mp_hands.Hands(
             mp_hands.HAND_CONNECTIONS,
             mp_drawing_styles.get_default_hand_landmarks_style(),
             mp_drawing_styles.get_default_hand_connections_style())
-      #print([
-      #print(results.multi_hand_landmarks[0])
+      
       for i in list_of_the_fingers:
         if euclian_distance(results.multi_hand_landmarks[0].landmark[4].x - results.multi_hand_landmarks[0].landmark[i].x, results.multi_hand_landmarks[0].landmark[4].y - results.multi_hand_landmarks[0].landmark[i].y, results.multi_hand_landmarks[0].landmark[4].z - results.multi_hand_landmarks[0].landmark[i].z):
           flag = True
         else:
           flag = False
           break
-      for i in range(21):
-        sum_x+=results.multi_hand_landmarks[0].landmark[i].x
-        sum_y+=results.multi_hand_landmarks[0].landmark[i].y
 
-      sum_x = (sum_x/21.0)
-      sum_y = (sum_y/21.0)
-
-      # sum_x = float(str("%.2f" % sum_x))
-      # sum_y = float(str("%.2f" % sum_y))
       if not flag:
         #print("PINTANDO")
         drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800)
@@ -83,9 +73,7 @@ with mp_hands.Hands(
         #print("AGORA NAOO")
         
       print(results.multi_hand_landmarks[0].landmark[8].z)
-    # Flip the image horizontally for a selfie-view display.
-    # cv2.namedWindow(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN)
-    # cv2.setWindowProperty(WINDOW_NAME, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
     cv2.imshow(WINDOW_NAME, cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
