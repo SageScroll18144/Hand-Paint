@@ -71,11 +71,14 @@ with mp_hands.Hands(
         sum_x+=results.multi_hand_landmarks[0].landmark[i].x
         sum_y+=results.multi_hand_landmarks[0].landmark[i].y
 
-      sum_x = (sum_x/21)
-      sum_y = (sum_y/21)
-      if flag:
+      sum_x = (sum_x/21.0)
+      sum_y = (sum_y/21.0)
+
+      # sum_x = float(str("%.2f" % sum_x))
+      # sum_y = float(str("%.2f" % sum_y))
+      if not flag:
         #print("PINTANDO")
-        drawCircle(screen, (1 - sum_x) * 1200, sum_y * 800)
+        drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800)
       #else: 
         #print("AGORA NAOO")
         
