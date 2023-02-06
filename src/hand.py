@@ -68,10 +68,10 @@ with mp_hands.Hands(
 
       if not flag:
         drawCircle(screen, (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800)
-      else: 
-        # pg.draw.circle( screen, (255, 0, 0), ( (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800 ), 10 )
-        # pg.draw.circle( screen, (255, 255, 255), ( (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800 ), 10 )
-        print("a")   
+      # else: 
+      #   # pg.draw.circle( screen, (255, 0, 0), ( (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800 ), 10 )
+      #   # pg.draw.circle( screen, (255, 255, 255), ( (1 - results.multi_hand_landmarks[0].landmark[9].x) * 1200, results.multi_hand_landmarks[0].landmark[9].y * 800 ), 10 )
+      #   print("a")   
     cv2.imshow(WINDOW_NAME, cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
